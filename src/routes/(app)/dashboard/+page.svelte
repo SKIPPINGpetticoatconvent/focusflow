@@ -5,13 +5,14 @@
 	import TaskList from '$lib/components/TaskList.svelte';
 	import StatsDashboard from '$lib/components/StatsDashboard.svelte';
 	import AIAssistant from '$lib/components/AIAssistant.svelte';
+	import { _, locale } from 'svelte-i18n';
 	import { fade, fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
 	let currentTime = $state('');
 
 	function updateTime() {
-		currentTime = new Date().toLocaleTimeString('en-US', { 
+		currentTime = new Date().toLocaleTimeString($locale === 'zh' ? 'zh-CN' : 'en-US', {
 			hour: '2-digit', 
 			minute: '2-digit',
 			hour12: false 
@@ -31,11 +32,11 @@
 		<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 			<div>
 				<h1 class="text-3xl md:text-4xl font-bold">
-					Welcome back{$auth.user?.full_name ? `, ${$auth.user.full_name}` : ''}!
+					{$_('dashboard.welcomeBack')}{$auth.user?.full_name ? `, ${$auth.user.full_name}` : ''}!
 				</h1>
 				<p class="text-base-content/60 mt-1 text-lg flex items-center gap-2">
 					<span class="animate-pulse">✨</span>
-					Let's be productive today.
+					{$_('dashboard.productive')}
 				</p>
 			</div>
 			<div class="flex items-center gap-3">
@@ -63,8 +64,8 @@
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
 							</div>
 							<div>
-								<h2 class="card-title text-xl">Focus Timer</h2>
-								<p class="text-base-content/60 text-sm">Stay focused, achieve more</p>
+								<h2 class="card-title text-xl">{$_('dashboard.focusTimer')}</h2>
+								<p class="text-base-content/60 text-sm">{$_('dashboard.focusTimerDesc')}</p>
 							</div>
 						</div>
 					</div>
@@ -86,8 +87,8 @@
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
 							</div>
 							<div>
-								<h2 class="card-title text-xl">Tasks</h2>
-								<p class="text-base-content/60 text-sm">Organize your work</p>
+								<h2 class="card-title text-xl">{$_('dashboard.tasks')}</h2>
+								<p class="text-base-content/60 text-sm">{$_('dashboard.tasksDesc')}</p>
 							</div>
 						</div>
 					</div>
@@ -112,8 +113,8 @@
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
 							</div>
 							<div>
-								<h2 class="card-title text-xl">Statistics</h2>
-								<p class="text-base-content/60 text-sm">Track your progress</p>
+								<h2 class="card-title text-xl">{$_('dashboard.statistics')}</h2>
+								<p class="text-base-content/60 text-sm">{$_('dashboard.statisticsDesc')}</p>
 							</div>
 						</div>
 					</div>

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { auth } from '$lib/stores/auth';
+	import { get } from 'svelte/store';
+	import { _ } from 'svelte-i18n';
 
 	let email = $state('');
 	let password = $state('');
@@ -9,7 +11,7 @@
 
 	async function handleLogin() {
 		if (!email || !password) {
-			error = 'Please fill in all fields';
+			error = get(_)('login.errorFill');
 			return;
 		}
 
@@ -21,7 +23,7 @@
 		if (result.success) {
 			goto('/dashboard');
 		} else {
-			error = result.error || 'Login failed';
+			error = result.error || get(_)('login.errorLogin');
 		}
 
 		isLoading = false;
@@ -29,7 +31,7 @@
 
 	async function handleRegister() {
 		if (!email || !password) {
-			error = 'Please fill in all fields';
+			error = get(_)('login.errorFill');
 			return;
 		}
 
@@ -41,7 +43,7 @@
 		if (result.success) {
 			goto('/dashboard');
 		} else {
-			error = result.error || 'Registration failed';
+			error = result.error || get(_)('login.errorRegister');
 		}
 
 		isLoading = false;
@@ -54,40 +56,33 @@
 	}
 </script>
 
-<div class="min-h-screen flex items-center justify-center relative overflow-hidden">
+<div class="relative min-h-[100dvh] overflow-hidden px-4 py-6 sm:py-10">
 	<!-- Animated Background -->
-	<div class="absolute inset-0 bg-gradient-to-br from-red-500/20 via-orange-500/10 to-yellow-500/20 dark:from-red-950/40 dark:via-orange-950/20 dark:to-yellow-950/40"></div>
-	<div class="absolute inset-0 opacity-30">
-		<div class="absolute top-1/4 left-1/4 w-64 h-64 bg-red-500/30 rounded-full blur-3xl animate-pulse"></div>
-		<div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-		<div class="absolute top-1/2 left-1/2 w-48 h-48 bg-yellow-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+	<div class="absolute inset-0 bg-gradient-to-br from-red-500/15 via-orange-400/10 to-yellow-500/15 dark:from-red-950/40 dark:via-orange-950/20 dark:to-yellow-950/40"></div>
+	<div class="absolute inset-0 opacity-35">
+		<div class="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-red-500/25 blur-3xl animate-pulse"></div>
+		<div class="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-orange-500/20 blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+		<div class="absolute top-1/2 left-1/2 h-48 w-48 rounded-full bg-yellow-500/20 blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
 	</div>
 	
-	<!-- Floating Pomodoros -->
-	<div class="absolute inset-0 overflow-hidden pointer-events-none">
-		<span class="absolute top-20 left-10 text-4xl animate-bounce" style="animation-duration: 3s;">🍅</span>
-		<span class="absolute top-40 right-20 text-3xl animate-bounce" style="animation-duration: 4s; animation-delay: 0.5s;">⏱️</span>
-		<span class="absolute bottom-32 left-20 text-2xl animate-bounce" style="animation-duration: 3.5s; animation-delay: 1s;">✨</span>
-		<span class="absolute bottom-20 right-32 text-3xl animate-bounce" style="animation-duration: 4.5s; animation-delay: 1.5s;">🎯</span>
-	</div>
-
-	<div class="relative z-10 w-full max-w-md px-4">
+	<div class="relative z-10 mx-auto flex min-h-[calc(100dvh-3rem)] w-full max-w-md items-center">
 		<!-- Logo Section -->
-		<div class="text-center mb-8">
-			<div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-red-500 to-orange-500 shadow-2xl mb-4 transform hover:scale-110 transition-transform duration-300">
-				<span class="text-4xl">🍅</span>
+		<div class="w-full">
+			<div class="mb-6 text-center sm:mb-8">
+				<div class="mb-4 inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-red-500 to-orange-500 shadow-2xl transition-transform duration-300 hover:scale-110">
+					<span class="text-4xl">🍅</span>
+				</div>
+				<h1 class="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text text-4xl font-bold text-transparent">
+					FocusFlow
+				</h1>
+				<p class="mt-2 text-base text-base-content/70 sm:text-lg">{$_('login.subtitle')}</p>
 			</div>
-			<h1 class="text-4xl font-bold bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent">
-				FocusFlow
-			</h1>
-			<p class="text-base-content/60 mt-2 text-lg">Master your time, achieve your goals</p>
-		</div>
 
-		<!-- Login Card -->
-		<div class="card bg-base-100/80 backdrop-blur-lg shadow-2xl border border-base-200/50">
-			<div class="card-body">
-				<h2 class="card-title text-2xl justify-center mb-2">Welcome Back</h2>
-				<p class="text-base-content/60 text-center mb-6">Enter your credentials to continue</p>
+			<!-- Login Card -->
+			<div class="card border border-base-200/70 bg-base-100/85 shadow-2xl backdrop-blur-xl">
+				<div class="card-body p-6 sm:p-8">
+				<h2 class="card-title text-2xl justify-center mb-2">{$_('login.title')}</h2>
+				<p class="text-base-content/60 text-center mb-6">{$_('login.description')}</p>
 				
 				{#if error}
 					<div class="alert alert-error mb-4">
@@ -98,7 +93,7 @@
 
 				<div class="form-control">
 					<label class="label" for="email">
-						<span class="label-text font-medium">Email</span>
+						<span class="label-text font-medium">{$_('common.email')}</span>
 					</label>
 					<div class="relative">
 						<input
@@ -106,6 +101,7 @@
 							type="email"
 							placeholder="your@email.com"
 							class="input input-bordered w-full pl-12 bg-base-200/50 focus:bg-base-200 transition-colors"
+							autocomplete="email"
 							bind:value={email}
 							onkeydown={handleKeydown}
 							disabled={isLoading}
@@ -118,7 +114,7 @@
 				
 				<div class="form-control mt-4">
 					<label class="label" for="password">
-						<span class="label-text font-medium">Password</span>
+						<span class="label-text font-medium">{$_('common.password')}</span>
 					</label>
 					<div class="relative">
 						<input
@@ -126,6 +122,7 @@
 							type="password"
 							placeholder="••••••••"
 							class="input input-bordered w-full pl-12 bg-base-200/50 focus:bg-base-200 transition-colors"
+							autocomplete="current-password"
 							bind:value={password}
 							onkeydown={handleKeydown}
 							disabled={isLoading}
@@ -137,8 +134,8 @@
 				</div>
 
 				<div class="form-control mt-8">
-					<button 
-						class="btn btn-primary btn-lg" 
+					<button
+						class="btn btn-primary btn-lg w-full gap-2 shadow-lg shadow-primary/20"
 						onclick={handleLogin} 
 						disabled={isLoading}
 					>
@@ -149,42 +146,43 @@
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
 							</svg>
 						{/if}
-						{isLoading ? 'Signing in...' : 'Sign In'}
+						{isLoading ? $_('common.signInLoading') : $_('common.signIn')}
 					</button>
 				</div>
 
-				<div class="divider text-base-content/60">OR</div>
+				<div class="divider text-base-content/60">{$_('common.or')}</div>
 
 				<div class="form-control">
-					<button 
-						class="btn btn-outline btn-lg" 
+					<button
+						class="btn btn-outline btn-lg w-full gap-2"
 						onclick={handleRegister} 
 						disabled={isLoading}
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
 						</svg>
-						Create Account
+						{$_('common.createAccount')}
 					</button>
 				</div>
 
 				<p class="text-center text-xs text-base-content/40 mt-6">
 					<span class="inline-flex items-center gap-1">
 						<span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
-						Demo mode: Use any email/password
+						{$_('login.demo')}
 					</span>
 				</p>
+				</div>
 			</div>
-		</div>
 
-		<!-- Back Link -->
-		<p class="text-center text-sm text-base-content/60 mt-6">
-			<a href="/" class="inline-flex items-center gap-1 hover:gap-2 transition-all">
-				<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-				</svg>
-				Back to home
-			</a>
-		</p>
+			<!-- Back Link -->
+			<p class="text-center text-sm text-base-content/60 mt-6">
+				<a href="/" class="inline-flex items-center gap-1 hover:gap-2 transition-all">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+					</svg>
+					{$_('common.backHome')}
+				</a>
+			</p>
+		</div>
 	</div>
 </div>

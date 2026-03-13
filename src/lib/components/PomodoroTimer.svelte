@@ -1,12 +1,7 @@
 <script lang="ts">
 	import { pomodoroStore } from '$lib/stores/pomodoro';
+	import { _ } from 'svelte-i18n';
 	import { fade, scale } from 'svelte/transition';
-
-	const modeLabels: Record<string, string> = {
-		work: '🔥 Focus Time',
-		short_break: '☕ Short Break',
-		long_break: '🌴 Long Break'
-	};
 
 	const modeColors: Record<string, string> = {
 		work: 'stroke-error',
@@ -60,6 +55,12 @@
 	function handleSkip() {
 		pomodoroStore.skip();
 	}
+
+	const modeLabelKey: Record<string, string> = {
+		work: 'pomodoro.focusTime',
+		short_break: 'pomodoro.shortBreak',
+		long_break: 'pomodoro.longBreak'
+	};
 </script>
 
 <div class="flex flex-col items-center p-6">
@@ -69,7 +70,7 @@
 			in:fade={{ duration: 200 }}
 			class="badge badge-lg mb-6 {modeBgColors[$pomodoroStore.mode]} border-0"
 		>
-			{modeLabels[$pomodoroStore.mode]}
+			{$_(modeLabelKey[$pomodoroStore.mode])}
 		</div>
 	{/key}
 
@@ -114,7 +115,7 @@
 				{timeDisplay}
 			</span>
 			<span class="text-sm text-base-content/50 mt-2 font-medium">
-				{$pomodoroStore.isRunning ? 'Running...' : 'Ready to start'}
+				{$pomodoroStore.isRunning ? $_('pomodoro.running') : $_('pomodoro.ready')}
 			</span>
 		</div>
 
@@ -138,7 +139,7 @@
 				onclick={handleStart}
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-				Start Focus
+				{$_('pomodoro.startFocus')}
 			</button>
 		{:else}
 			<button 
@@ -146,7 +147,7 @@
 				onclick={handlePause}
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-				Pause
+				{$_('pomodoro.pause')}
 			</button>
 		{/if}
 		<button 
@@ -154,14 +155,14 @@
 			onclick={handleReset}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-			Reset
+			{$_('pomodoro.reset')}
 		</button>
 		<button 
 			class="btn btn-ghost btn-lg gap-2 hover:bg-base-200" 
 			onclick={handleSkip}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
-			Skip
+			{$_('pomodoro.skip')}
 		</button>
 	</div>
 
@@ -170,12 +171,12 @@
 		<div class="flex items-center gap-2 px-4 py-2 bg-base-200 rounded-full">
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-error" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
 			<span class="font-medium">{$pomodoroStore.completedPomodoros}</span>
-			<span class="text-base-content/60">completed</span>
+			<span class="text-base-content/60">{$_('pomodoro.completed')}</span>
 		</div>
 		<div class="flex items-center gap-2 px-4 py-2 bg-base-200 rounded-full">
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
 			<span class="font-medium">{$pomodoroStore.settings.sessionsBeforeLongBreak - ($pomodoroStore.completedPomodoros % $pomodoroStore.settings.sessionsBeforeLongBreak)}</span>
-			<span class="text-base-content/60">until long break</span>
+			<span class="text-base-content/60">{$_('pomodoro.untilLongBreak')}</span>
 		</div>
 	</div>
 </div>

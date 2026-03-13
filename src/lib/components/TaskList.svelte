@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { taskStore, filteredTasks } from '$lib/stores/tasks';
+	import { _ } from 'svelte-i18n';
 	import { flip } from 'svelte/animate';
 	import { scale, fade } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
@@ -24,6 +25,13 @@
 		medium: { badge: 'badge-primary', icon: '→' },
 		high: { badge: 'badge-warning', icon: '↑' },
 		urgent: { badge: 'badge-error', icon: '!' }
+	};
+
+	const priorityLabelKey: Record<TaskPriority, string> = {
+		low: 'taskList.low',
+		medium: 'taskList.medium',
+		high: 'taskList.high',
+		urgent: 'taskList.urgent'
 	};
 
 	async function handleAddTask(e: Event) {
@@ -99,7 +107,7 @@
 		</div>
 		<input
 			type="search"
-			placeholder="Search tasks..."
+			placeholder={$_('taskList.searchPlaceholder')}
 			class="input input-bordered w-full pl-12 pr-4 py-3 rounded-xl focus:input-primary transition-all"
 			bind:value={searchQuery}
 		/>
@@ -110,7 +118,7 @@
 		<div class="relative flex-1">
 			<input
 				type="text"
-				placeholder="What needs to be done?"
+				placeholder={$_('taskList.inputPlaceholder')}
 				class="input input-bordered w-full pr-4 py-3 rounded-xl focus:input-primary transition-all"
 				bind:value={newTaskTitle}
 			/>
@@ -121,17 +129,17 @@
 			disabled={!newTaskTitle.trim()}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-			<span class="hidden sm:inline">Add Task</span>
+			<span class="hidden sm:inline">{$_('taskList.addTask')}</span>
 		</button>
 	</form>
 
 	<!-- Filter buttons -->
 	<div class="flex gap-2 flex-wrap">
 		{#each [
-			{ id: 'all', label: 'All', icon: '○', count: $filteredTasks.tasks.length },
-			{ id: 'pending', label: 'Pending', icon: '○' },
-			{ id: 'in_progress', label: 'In Progress', icon: '◐' },
-			{ id: 'completed', label: 'Completed', icon: '●' }
+			{ id: 'all', label: $_('taskList.all'), icon: '○', count: $filteredTasks.tasks.length },
+			{ id: 'pending', label: $_('taskList.pending'), icon: '○' },
+			{ id: 'in_progress', label: $_('taskList.inProgress'), icon: '◐' },
+			{ id: 'completed', label: $_('taskList.completed'), icon: '●' }
 		] as filterOption}
 			<button
 				onclick={() => filter = filterOption.id as any}
@@ -153,7 +161,7 @@
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-base-content/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
 			</div>
 			<p class="text-base-content/60 text-lg">
-				{searchQuery ? 'No tasks match your search.' : 'No tasks yet. Add one above!'}
+				{searchQuery ? $_('taskList.noMatch') : $_('taskList.noTasks')}
 			</p>
 		</div>
 	{:else}
@@ -192,10 +200,10 @@
 								onkeydown={(e) => e.key === 'Enter' && saveEditing(task.id)}
 								autofocus
 							/>
-							<button class="btn btn-sm btn-success btn-circle" onclick={() => saveEditing(task.id)}>
+							<button class="btn btn-sm btn-success btn-circle" onclick={() => saveEditing(task.id)} title={$_('taskList.save')} aria-label={$_('taskList.save')}>
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
 							</button>
-							<button class="btn btn-sm btn-ghost btn-circle" onclick={cancelEditing}>
+							<button class="btn btn-sm btn-ghost btn-circle" onclick={cancelEditing} title={$_('taskList.cancel')} aria-label={$_('taskList.cancel')}>
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
 							</button>
 						</div>
@@ -208,20 +216,20 @@
 						</span>
 						<span class="badge badge-sm {priorityColors[task.priority].badge} gap-1">
 							<span>{priorityColors[task.priority].icon}</span>
-							<span class="capitalize">{task.priority}</span>
+							<span>{$_(priorityLabelKey[task.priority])}</span>
 						</span>
 						<div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
 							<button
 								onclick={() => startEditing(task)}
 								class="btn btn-xs btn-ghost btn-circle"
-								title="Edit"
+								title={$_('taskList.edit')}
 							>
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
 							</button>
 							<button
 								onclick={() => handleDeleteTask(task.id)}
 								class="btn btn-xs btn-ghost btn-circle text-error hover:bg-error/10"
-								title="Delete"
+								title={$_('taskList.delete')}
 							>
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
 							</button>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { workspaceStore, workspaces, currentWorkspace } from '$lib/stores/workspace';
+	import { _, locale } from 'svelte-i18n';
 	import { Plus, Users, Folder } from 'lucide-svelte';
 
 	let showNewWorkspaceDialog = $state(false);
@@ -20,19 +21,19 @@
 	}
 </script>
 
-<div class="p-8">
-	<div class="flex items-center justify-between mb-8">
+<div class="p-4 md:p-8">
+	<div class="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
 		<div>
-			<h1 class="text-3xl font-bold">Workspaces</h1>
-			<p class="text-base-content/60">Manage your workspaces</p>
+			<h1 class="text-3xl font-bold">{$_('workspace.title')}</h1>
+			<p class="text-base-content/60">{$_('workspace.subtitle')}</p>
 		</div>
 		<button class="btn btn-primary" onclick={() => showNewWorkspaceDialog = true}>
 			<Plus class="w-4 h-4 mr-2" />
-			New Workspace
+			{$_('workspace.newWorkspace')}
 		</button>
 	</div>
 
-	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+	<div class="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
 		{#each $workspaces as workspace}
 			<button 
 				class="card bg-base-100 shadow-xl cursor-pointer hover:shadow-2xl transition-all text-left {$currentWorkspace?.id === workspace.id ? 'ring-2 ring-primary' : ''}"
@@ -47,9 +48,11 @@
 						{/if}
 						{workspace.name}
 					</h2>
-					<p class="text-sm text-base-content/60 capitalize">{workspace.type}</p>
+					<p class="text-sm text-base-content/60 capitalize">
+						{workspace.type === 'personal' ? $_('workspace.personal') : $_('workspace.team')}
+					</p>
 					<p class="text-xs text-base-content/40">
-						Created {new Date(workspace.created_at).toLocaleDateString()}
+						{$_('workspace.created')} {new Date(workspace.created_at).toLocaleDateString($locale === 'zh' ? 'zh-CN' : 'en-US')}
 					</p>
 				</div>
 			</button>
@@ -58,10 +61,10 @@
 		{#if $workspaces.length === 0}
 			<div class="col-span-full text-center py-12">
 				<Folder class="w-12 h-12 mx-auto text-base-content/40 mb-4" />
-				<p class="text-base-content/60">No workspaces yet</p>
+				<p class="text-base-content/60">{$_('workspace.noWorkspace')}</p>
 				<button class="btn btn-outline mt-4" onclick={() => showNewWorkspaceDialog = true}>
 					<Plus class="w-4 h-4 mr-2" />
-					Create your first workspace
+					{$_('workspace.createFirst')}
 				</button>
 			</div>
 		{/if}
@@ -71,17 +74,17 @@
 {#if showNewWorkspaceDialog}
 	<div class="modal modal-open">
 		<div class="modal-box">
-			<h3 class="font-bold text-lg">Create New Workspace</h3>
-			<p class="text-base-content/60 py-2">Enter a name for your new workspace</p>
+			<h3 class="font-bold text-lg">{$_('workspace.createTitle')}</h3>
+			<p class="text-base-content/60 py-2">{$_('workspace.createDesc')}</p>
 			
 			<div class="form-control">
 				<label class="label" for="workspaceName">
-					<span class="label-text">Workspace Name</span>
+					<span class="label-text">{$_('workspace.workspaceName')}</span>
 				</label>
 				<input
 					id="workspaceName"
 					type="text"
-					placeholder="My Workspace"
+					placeholder={$_('workspace.myWorkspace')}
 					class="input input-bordered"
 					bind:value={newWorkspaceName}
 				/>
@@ -89,7 +92,7 @@
 
 			<div class="form-control">
 				<span class="label">
-					<span class="label-text">Workspace Type</span>
+					<span class="label-text">{$_('workspace.workspaceType')}</span>
 				</span>
 				<div class="flex gap-4">
 					<label class="flex items-center gap-2 cursor-pointer">
@@ -100,7 +103,7 @@
 							bind:group={newWorkspaceType}
 							class="radio radio-primary"
 						/>
-						<span>Personal</span>
+						<span>{$_('workspace.personal')}</span>
 					</label>
 					<label class="flex items-center gap-2 cursor-pointer">
 						<input
@@ -110,14 +113,14 @@
 							bind:group={newWorkspaceType}
 							class="radio radio-primary"
 						/>
-						<span>Team</span>
+						<span>{$_('workspace.team')}</span>
 					</label>
 				</div>
 			</div>
 
 			<div class="modal-action">
-				<button class="btn btn-ghost" onclick={() => showNewWorkspaceDialog = false}>Cancel</button>
-				<button class="btn btn-primary" onclick={handleCreateWorkspace} disabled={!newWorkspaceName.trim()}>Create</button>
+				<button class="btn btn-ghost" onclick={() => showNewWorkspaceDialog = false}>{$_('workspace.cancel')}</button>
+				<button class="btn btn-primary" onclick={handleCreateWorkspace} disabled={!newWorkspaceName.trim()}>{$_('workspace.create')}</button>
 			</div>
 		</div>
 		<div class="modal-backdrop" onclick={() => showNewWorkspaceDialog = false} onkeydown={(e) => e.key === 'Escape' && (showNewWorkspaceDialog = false)} role="button" tabindex="0"></div>

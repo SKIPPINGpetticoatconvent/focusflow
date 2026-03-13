@@ -1,16 +1,17 @@
 <script lang="ts">
 	import { auth } from '$lib/stores/auth';
 	import { pomodoroStore } from '$lib/stores/pomodoro';
+	import { _ } from 'svelte-i18n';
 	import { Settings, Timer, User, Palette } from 'lucide-svelte';
 
 	let fullName = $derived($auth.user?.full_name || '');
 	let email = $derived($auth.user?.email || '');
 </script>
 
-<div class="p-8 max-w-3xl">
+<div class="max-w-3xl p-4 md:p-8">
 	<div class="mb-8">
-		<h1 class="text-3xl font-bold">Settings</h1>
-		<p class="text-base-content/60">Manage your account and preferences</p>
+		<h1 class="text-3xl font-bold">{$_('settings.title')}</h1>
+		<p class="text-base-content/60">{$_('settings.subtitle')}</p>
 	</div>
 
 	<div class="space-y-6">
@@ -18,24 +19,24 @@
 			<div class="card-body">
 				<div class="flex items-center gap-2">
 					<User class="w-5 h-5" />
-					<h2 class="card-title">Profile</h2>
+					<h2 class="card-title">{$_('settings.profile')}</h2>
 				</div>
-				<p class="text-base-content/60">Update your account information</p>
+				<p class="text-base-content/60">{$_('settings.profileDesc')}</p>
 				
 				<div class="form-control">
 					<label class="label" for="fullName">
-						<span class="label-text">Full Name</span>
+						<span class="label-text">{$_('settings.fullName')}</span>
 					</label>
 					<input id="fullName" type="text" class="input input-bordered" bind:value={fullName} />
 				</div>
 				<div class="form-control">
 					<label class="label" for="email">
-						<span class="label-text">Email</span>
+						<span class="label-text">{$_('common.email')}</span>
 					</label>
 					<input id="email" type="text" class="input input-bordered" bind:value={email} disabled />
 				</div>
 				<div class="card-actions justify-end mt-4">
-					<button class="btn btn-primary">Save Changes</button>
+					<button class="btn btn-primary">{$_('settings.saveChanges')}</button>
 				</div>
 			</div>
 		</div>
@@ -44,14 +45,14 @@
 			<div class="card-body">
 				<div class="flex items-center gap-2">
 					<Timer class="w-5 h-5" />
-					<h2 class="card-title">Pomodoro Settings</h2>
+					<h2 class="card-title">{$_('settings.pomodoroSettings')}</h2>
 				</div>
-				<p class="text-base-content/60">Customize your timer preferences</p>
+				<p class="text-base-content/60">{$_('settings.pomodoroDesc')}</p>
 				
-				<div class="grid grid-cols-3 gap-4 mt-4">
+				<div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
 					<div class="form-control">
 						<label class="label" for="workDuration">
-							<span class="label-text">Work (min)</span>
+							<span class="label-text">{$_('settings.workMin')}</span>
 						</label>
 						<input
 							id="workDuration"
@@ -65,7 +66,7 @@
 					</div>
 					<div class="form-control">
 						<label class="label" for="shortBreak">
-							<span class="label-text">Short Break (min)</span>
+							<span class="label-text">{$_('settings.shortBreakMin')}</span>
 						</label>
 						<input
 							id="shortBreak"
@@ -79,7 +80,7 @@
 					</div>
 					<div class="form-control">
 						<label class="label" for="longBreak">
-							<span class="label-text">Long Break (min)</span>
+							<span class="label-text">{$_('settings.longBreakMin')}</span>
 						</label>
 						<input
 							id="longBreak"
@@ -94,7 +95,7 @@
 				</div>
 				<div class="form-control mt-4">
 					<label class="label" for="sessionsBeforeLongBreak">
-						<span class="label-text">Sessions before long break</span>
+						<span class="label-text">{$_('settings.sessionsBeforeLongBreak')}</span>
 					</label>
 					<input
 						id="sessionsBeforeLongBreak"
@@ -113,11 +114,11 @@
 			<div class="card-body">
 				<div class="flex items-center gap-2">
 					<Palette class="w-5 h-5" />
-					<h2 class="card-title">Appearance</h2>
+					<h2 class="card-title">{$_('settings.appearance')}</h2>
 				</div>
-				<p class="text-base-content/60">Customize the look and feel</p>
+				<p class="text-base-content/60">{$_('settings.appearanceDesc')}</p>
 				<p class="text-sm text-base-content/60 mt-2">
-					Dark mode is currently enabled by default. More themes coming soon!
+					{$_('settings.darkModeHint')}
 				</p>
 			</div>
 		</div>

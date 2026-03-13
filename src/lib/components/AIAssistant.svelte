@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { generateAITasks, getAIChatResponse } from '$lib/mock/ai';
 	import { taskStore } from '$lib/stores/tasks';
+	import { get } from 'svelte/store';
+	import { _ } from 'svelte-i18n';
 	import { slide } from 'svelte/transition';
 	import { MessageSquare, X, Sparkles, Plus, Send } from 'lucide-svelte';
 	import type { AI_TASK_SUGGESTION } from '$types';
@@ -17,7 +19,15 @@
 		isLoading = true;
 		
 		try {
-			if (message.toLowerCase().includes('generate') || message.toLowerCase().includes('create') || message.toLowerCase().includes('task')) {
+			const lowerMessage = message.toLowerCase();
+			if (
+				lowerMessage.includes('generate') ||
+				lowerMessage.includes('create') ||
+				lowerMessage.includes('task') ||
+				lowerMessage.includes('生成') ||
+				lowerMessage.includes('创建') ||
+				lowerMessage.includes('任务')
+			) {
 				suggestions = await generateAITasks(message);
 				chatResponse = '';
 			} else {
@@ -25,7 +35,7 @@
 				suggestions = [];
 			}
 		} catch (error) {
-			chatResponse = 'Sorry, I encountered an error. Please try again.';
+			chatResponse = get(_)('ai.sorryError');
 		}
 		
 		isLoading = false;
@@ -58,14 +68,14 @@
 		<div
 			in:slide={{ duration: 300, axis: 'y' }}
 			out:slide={{ duration: 300, axis: 'y' }}
-			class="absolute bottom-0 right-0 w-80 md:w-96 bg-base-100 border rounded-lg shadow-lg mb-2 mr-2"
+			class="absolute bottom-0 right-0 mb-2 mr-2 w-[min(22rem,calc(100vw-1.5rem))] rounded-lg border bg-base-100 shadow-lg sm:w-96"
 		>
 			<div class="flex items-center justify-between p-4 border-b">
 				<div class="flex items-center gap-2">
 					<Sparkles class="w-5 h-5 text-primary" />
-					<span class="font-semibold">AI Assistant</span>
+					<span class="font-semibold">{$_('ai.title')}</span>
 				</div>
-				<button onclick={togglePanel} class="btn btn-sm btn-ghost">
+				<button onclick={togglePanel} class="btn btn-sm btn-ghost" title={$_('ai.close')} aria-label={$_('ai.close')}>
 					<X class="w-4 h-4" />
 				</button>
 			</div>
@@ -73,14 +83,14 @@
 			<div class="p-4 max-h-80 overflow-y-auto space-y-4">
 				{#if suggestions.length > 0}
 					<div class="space-y-2">
-						<p class="text-sm font-medium text-base-content/60">Suggested Tasks:</p>
+						<p class="text-sm font-medium text-base-content/60">{$_('ai.suggestedTasks')}</p>
 						{#each suggestions as suggestion}
 							<div class="p-3 rounded-lg border bg-base-200 hover:bg-base-300 transition-colors">
 								<div class="flex items-start justify-between gap-2">
 									<div class="flex-1">
 										<p class="text-sm font-medium">{suggestion.title}</p>
 										<p class="text-xs text-base-content/60 mt-1">
-											{suggestion.estimatedPomodoros} pomodoros • {suggestion.priority}
+											{suggestion.estimatedPomodoros} {$_('ai.pomodoros')} • {suggestion.priority}
 										</p>
 										{#if suggestion.reason}
 											<p class="text-xs text-base-content/60 mt-1">{suggestion.reason}</p>
@@ -117,7 +127,7 @@
 				<div class="flex gap-2">
 					<input
 						type="text"
-						placeholder="Ask AI or generate tasks..."
+						placeholder={$_('ai.askPlaceholder')}
 						class="input input-bordered flex-1"
 						bind:value={message}
 						onkeydown={handleKeydown}
@@ -134,6 +144,8 @@
 	<button
 		onclick={togglePanel}
 		class="btn btn-circle btn-lg shadow-lg"
+		title={$_('ai.open')}
+		aria-label={$_('ai.open')}
 	>
 		<MessageSquare class="w-6 h-6" />
 	</button>
