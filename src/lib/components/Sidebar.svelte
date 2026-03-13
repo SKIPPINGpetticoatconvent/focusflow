@@ -6,6 +6,7 @@
 	import { slide } from 'svelte/transition';
 
 	let showWorkspaceMenu = $state(false);
+let collapsed = $state(false);
 
 	const navItems = [
 		{ 
@@ -34,22 +35,39 @@
 	}
 </script>
 
-<aside class="sticky top-0 h-screen w-72 border-r border-base-300/40 bg-base-100/85 backdrop-blur-xl flex flex-col">
+<aside class="sticky top-0 h-screen border-r border-base-300/40 bg-base-100/85 backdrop-blur-xl flex flex-col {collapsed ? 'w-16' : 'w-72'}">
 	<!-- Logo -->
-	<div class="p-6 pb-4">
-		<a href="/dashboard" class="flex items-center gap-3 group">
-			<div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-error to-warning text-error-content flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-				<span class="text-2xl">🍅</span>
-			</div>
-			<div>
-				<h1 class="text-xl font-bold gradient-text">FocusFlow</h1>
-				<p class="text-xs text-base-content/50">{$_('sidebar.productTracker')}</p>
-			</div>
-		</a>
+	<div class="flex items-center justify-between gap-2 px-3 py-3">
+		{#if collapsed}
+			<a href="/dashboard" class="flex w-full items-center justify-center">
+				<div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-error to-warning text-error-content shadow-lg">
+					<span class="text-2xl">🍅</span>
+				</div>
+			</a>
+		{:else}
+			<a href="/dashboard" class="flex items-center gap-3 group">
+				<div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-error to-warning text-error-content shadow-lg group-hover:scale-105 transition-transform">
+					<span class="text-2xl">🍅</span>
+				</div>
+				<div class="whitespace-nowrap">
+					<h1 class="text-xl font-bold gradient-text">FocusFlow</h1>
+					<p class="text-xs text-base-content/50">{$_('sidebar.productTracker')}</p>
+				</div>
+			</a>
+		{/if}
+		<button
+			class="btn btn-ghost btn-xs rounded-full border border-base-300/60 bg-base-100/80"
+			onclick={() => collapsed = !collapsed}
+			aria-label="Toggle sidebar"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={collapsed ? 'M9 5l7 7-7 7' : 'M15 19l-7-7 7-7'} />
+			</svg>
+		</button>
 	</div>
 
 	<!-- Workspace Selector -->
-	{#if $currentWorkspace}
+	{#if $currentWorkspace && !collapsed}
 		<div class="px-4 pb-4">
 			<div class="rounded-2xl border border-base-300/40 bg-base-200/45 p-1.5">
 				<button
@@ -86,28 +104,32 @@
 	{/if}
 
 	<!-- Navigation -->
-	<nav class="flex-1 px-4 py-2 space-y-1">
-		<p class="text-xs font-semibold text-base-content/40 uppercase tracking-wider mb-3 px-3">{$_('common.menu')}</p>
+	<nav class="flex-1 px-1 py-2 space-y-1">
+		{#if !collapsed}
+			<p class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-base-content/40">{$_('common.menu')}</p>
+		{/if}
 		{#each navItems as item}
 			<a
 				href={item.href}
-				class="flex items-center gap-3 px-3 py-3 rounded-xl border transition-all group {isActive(item.href, $page.url.pathname) ? 'border-primary/30 bg-primary/90 text-primary-content shadow-lg shadow-primary/30' : 'border-transparent hover:border-base-300/40 hover:bg-base-200/60'}"
+				class="flex items-center {collapsed ? 'justify-center' : 'gap-3 px-3'} rounded-xl border py-3 transition-all group {isActive(item.href, $page.url.pathname) ? 'border-primary/30 bg-primary/90 text-primary-content shadow-lg shadow-primary/30' : 'border-transparent hover:border-base-300/40 hover:bg-base-200/60'}"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					{@html item.icon}
 				</svg>
-				<span class="font-medium">{$_(item.label)}</span>
-				{#if isActive(item.href, $page.url.pathname)}
-					<div class="ml-auto w-2 h-2 rounded-full bg-primary-content animate-pulse"></div>
+				{#if !collapsed}
+					<span class="font-medium">{$_(item.label)}</span>
+					{#if isActive(item.href, $page.url.pathname)}
+						<div class="ml-auto h-2 w-2 rounded-full bg-primary-content animate-pulse"></div>
+					{/if}
 				{/if}
 			</a>
 		{/each}
 	</nav>
 
 	<!-- User Section -->
-	<div class="p-4 border-t border-base-300/40">
-		{#if $auth.user}
-			<div class="mb-4 flex items-center gap-3 rounded-2xl border border-base-300/40 bg-base-200/45 p-3">
+	<div class="border-t border-base-300/40 p-3">
+		{#if $auth.user && !collapsed}
+			<div class="mb-3 flex items-center gap-3 rounded-2xl border border-base-300/40 bg-base-200/45 p-3">
 				{#if $auth.user.avatar_url}
 					<div class="avatar">
 						<div class="w-10 rounded-full ring-2 ring-base-100">
@@ -116,20 +138,25 @@
 					</div>
 				{:else}
 					<div class="avatar placeholder">
-						<div class="bg-gradient-to-br from-primary to-secondary text-primary-content rounded-full w-10 ring-2 ring-base-100">
+						<div class="w-10 rounded-full bg-gradient-to-br from-primary to-secondary text-primary-content ring-2 ring-base-100">
 							<span class="text-sm font-bold">{$auth.user.email?.charAt(0).toUpperCase() || 'U'}</span>
 						</div>
 					</div>
 				{/if}
-				<div class="flex-1 min-w-0">
-					<p class="text-sm font-semibold truncate">{$auth.user.full_name || $_('common.user')}</p>
-					<p class="text-xs text-base-content/50 truncate">{$auth.user.email}</p>
+				<div class="min-w-0 flex-1">
+					<p class="truncate text-sm font-semibold">{$auth.user.full_name || $_('common.user')}</p>
+					<p class="truncate text-xs text-base-content/50">{$auth.user.email}</p>
 				</div>
 			</div>
 		{/if}
-		<button class="btn btn-ghost w-full justify-start gap-2 rounded-xl hover:bg-error/10 hover:text-error group" onclick={handleLogout}>
+		<button
+			class="btn btn-ghost w-full justify-center gap-2 rounded-xl hover:bg-error/10 hover:text-error group {collapsed ? 'px-0' : ''}"
+			onclick={handleLogout}
+		>
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
-			{$_('common.logout')}
+			{#if !collapsed}
+				{$_('common.logout')}
+			{/if}
 		</button>
 	</div>
 </aside>

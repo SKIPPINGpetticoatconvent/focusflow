@@ -75,13 +75,13 @@
 				</div>
 			</div>
 
-			<!-- Tasks Card -->
+			<!-- Tasks Card (hover / focus expand) -->
 			<div 
-				class="card overflow-hidden border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm"
+				class="group/card card overflow-hidden border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm"
 				in:fly={{ y: 20, duration: 500, delay: 200, easing: quintOut }}
 			>
 				<div class="card-body p-0">
-					<div class="border-b border-base-300/40 bg-gradient-to-r from-primary/10 to-secondary/10 p-6">
+					<div class="flex items-center justify-between border-b border-base-300/40 bg-gradient-to-r from-primary/10 to-secondary/10 p-6">
 						<div class="flex items-center gap-3">
 							<div class="w-12 h-12 rounded-2xl bg-primary text-primary-content flex items-center justify-center shadow-lg">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
@@ -91,9 +91,17 @@
 								<p class="text-base-content/60 text-sm">{$_('dashboard.tasksDesc')}</p>
 							</div>
 						</div>
+						<div class="flex items-center gap-2 text-xs text-base-content/50">
+							<span class="hidden sm:inline">{$_('taskList.all')}</span>
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover/card:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+							</svg>
+						</div>
 					</div>
-					<div class="p-6">
-						<TaskList />
+					<div class="max-h-0 opacity-0 overflow-hidden transition-all duration-300 group-hover/card:max-h-[30rem] group-hover/card:opacity-100 group-focus-within/card:max-h-[30rem] group-focus-within/card:opacity-100">
+						<div class="p-6">
+							<TaskList />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -101,25 +109,33 @@
 
 		<!-- Right Column -->
 		<div class="space-y-6">
-			<!-- Statistics Card -->
+			<!-- Statistics Card (hover / focus expand) -->
 			<div 
-				class="card overflow-hidden border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm"
+				class="group/card card overflow-hidden border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm"
 				in:fly={{ y: 20, duration: 500, delay: 300, easing: quintOut }}
 			>
 				<div class="card-body p-0">
-					<div class="border-b border-base-300/40 bg-gradient-to-r from-info/10 to-success/10 p-6">
+					<div class="flex items-center justify-between border-b border-base-300/40 bg-gradient-to-r from-info/10 to-success/10 p-6">
 						<div class="flex items-center gap-3">
 							<div class="w-12 h-12 rounded-2xl bg-info text-info-content flex items-center justify-center shadow-lg">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2V19m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
 							</div>
 							<div>
 								<h2 class="card-title text-xl">{$_('dashboard.statistics')}</h2>
 								<p class="text-base-content/60 text-sm">{$_('dashboard.statisticsDesc')}</p>
 							</div>
 						</div>
+						<div class="flex items-center gap-2 text-xs text-base-content/50">
+							<span class="hidden sm:inline">{$_('stats.totalMinutes')}</span>
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover/card:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+							</svg>
+						</div>
 					</div>
-					<div class="p-6">
-						<StatsDashboard />
+					<div class="max-h-0 opacity-0 overflow-hidden transition-all duration-300 group-hover/card:max-h-[26rem] group-hover/card:opacity-100 group-focus-within/card:max-h-[26rem] group-focus-within/card:opacity-100">
+						<div class="p-6">
+							<StatsDashboard />
+						</div>
 					</div>
 				</div>
 			</div>
