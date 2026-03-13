@@ -35,7 +35,7 @@ let collapsed = $state(false);
 	}
 </script>
 
-<aside class="sticky top-0 h-screen border-r border-base-300/40 bg-base-100/85 backdrop-blur-xl flex flex-col {collapsed ? 'w-16' : 'w-72'}">
+<aside class="sticky top-0 h-screen border-r border-base-300/40 bg-base-100/85 backdrop-blur-xl flex flex-col {collapsed ? 'w-16' : 'w-64'}">
 	<!-- Logo -->
 	<div class="flex items-center justify-between gap-2 px-3 py-3">
 		{#if collapsed}
@@ -104,14 +104,14 @@ let collapsed = $state(false);
 	{/if}
 
 	<!-- Navigation -->
-	<nav class="flex-1 px-1 py-2 space-y-1">
+	<nav class="flex-1 space-y-0.5 {collapsed ? 'px-1.5' : 'px-2'} py-2">
 		{#if !collapsed}
-			<p class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-base-content/40">{$_('common.menu')}</p>
+			<p class="mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-wider text-base-content/40">{$_('common.menu')}</p>
 		{/if}
 		{#each navItems as item}
 			<a
 				href={item.href}
-				class="flex items-center {collapsed ? 'justify-center' : 'gap-3 px-3'} rounded-xl border py-3 transition-all group {isActive(item.href, $page.url.pathname) ? 'border-primary/30 bg-primary/90 text-primary-content shadow-lg shadow-primary/30' : 'border-transparent hover:border-base-300/40 hover:bg-base-200/60'}"
+				class="flex items-center {collapsed ? 'justify-center py-2.5' : 'gap-2.5 px-3 py-2.5'} rounded-xl border text-sm transition-all group {isActive(item.href, $page.url.pathname) ? 'border-primary/30 bg-primary/90 text-primary-content shadow-md shadow-primary/25' : 'border-transparent hover:border-base-300/40 hover:bg-base-200/60'}"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					{@html item.icon}

@@ -21,20 +21,19 @@
 	}
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-base-200/40 via-base-100 to-base-100 p-4 md:p-8">
-	<div class="mx-auto max-w-[1280px]">
-	<div class="mb-6 flex flex-col gap-3 rounded-3xl border border-base-300/40 bg-base-100/70 px-5 py-5 backdrop-blur-xl sm:mb-8 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+<div class="mx-auto max-w-6xl">
+	<div class="mb-5 flex flex-col gap-3 rounded-2xl border border-base-300/40 bg-base-100/70 px-5 py-4 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between">
 		<div>
-			<h1 class="text-3xl font-bold tracking-tight">{$_('workspace.title')}</h1>
-			<p class="text-base-content/60">{$_('workspace.subtitle')}</p>
+			<h1 class="text-2xl font-bold tracking-tight sm:text-3xl">{$_('workspace.title')}</h1>
+			<p class="text-sm text-base-content/50">{$_('workspace.subtitle')}</p>
 		</div>
-		<button class="btn btn-primary rounded-xl" onclick={() => showNewWorkspaceDialog = true}>
-			<Plus class="w-4 h-4 mr-2" />
+		<button class="btn btn-primary btn-sm rounded-xl gap-1.5 sm:btn-md" onclick={() => showNewWorkspaceDialog = true}>
+			<Plus class="w-4 h-4" />
 			{$_('workspace.newWorkspace')}
 		</button>
 	</div>
 
-	<div class="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 		{#each $workspaces as workspace}
 			<button 
 				class="card cursor-pointer border border-base-300/40 bg-base-100/80 text-left shadow-xl backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:shadow-2xl {$currentWorkspace?.id === workspace.id ? 'ring-2 ring-primary/70' : ''}"
@@ -73,7 +72,6 @@
 		{/if}
 	</div>
 	</div>
-</div>
 
 {#if showNewWorkspaceDialog}
 	<div class="modal modal-open">

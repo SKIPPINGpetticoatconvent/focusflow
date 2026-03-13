@@ -8,18 +8,17 @@
 	let email = $derived($auth.user?.email || '');
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-base-200/40 via-base-100 to-base-100 p-4 md:p-8">
-	<div class="mx-auto max-w-4xl">
-	<div class="mb-8 rounded-3xl border border-base-300/40 bg-base-100/70 px-5 py-5 backdrop-blur-xl md:px-8">
-		<h1 class="text-3xl font-bold tracking-tight">{$_('settings.title')}</h1>
-		<p class="text-base-content/60">{$_('settings.subtitle')}</p>
+<div class="mx-auto max-w-3xl">
+	<div class="mb-5 rounded-2xl border border-base-300/40 bg-base-100/70 px-5 py-4 backdrop-blur-xl">
+		<h1 class="text-2xl font-bold tracking-tight sm:text-3xl">{$_('settings.title')}</h1>
+		<p class="text-sm text-base-content/50">{$_('settings.subtitle')}</p>
 	</div>
 
-	<div class="space-y-6">
-		<div class="card border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm">
-			<div class="card-body">
+	<div class="space-y-5">
+		<div class="card rounded-2xl border border-base-300/40 bg-base-100/80 shadow-lg backdrop-blur-sm">
+			<div class="card-body p-5">
 				<div class="flex items-center gap-2">
-					<User class="w-5 h-5" />
+					<User class="w-4 h-4" />
 					<h2 class="card-title">{$_('settings.profile')}</h2>
 				</div>
 				<p class="text-base-content/60">{$_('settings.profileDesc')}</p>
@@ -42,10 +41,10 @@
 			</div>
 		</div>
 
-		<div class="card border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm">
-			<div class="card-body">
+		<div class="card rounded-2xl border border-base-300/40 bg-base-100/80 shadow-lg backdrop-blur-sm">
+			<div class="card-body p-5">
 				<div class="flex items-center gap-2">
-					<Timer class="w-5 h-5" />
+					<Timer class="w-4 h-4" />
 					<h2 class="card-title">{$_('settings.pomodoroSettings')}</h2>
 				</div>
 				<p class="text-base-content/60">{$_('settings.pomodoroDesc')}</p>
@@ -111,10 +110,10 @@
 			</div>
 		</div>
 
-		<div class="card border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm">
-			<div class="card-body">
+		<div class="card rounded-2xl border border-base-300/40 bg-base-100/80 shadow-lg backdrop-blur-sm">
+			<div class="card-body p-5">
 				<div class="flex items-center gap-2">
-					<Palette class="w-5 h-5" />
+					<Palette class="w-4 h-4" />
 					<h2 class="card-title">{$_('settings.appearance')}</h2>
 				</div>
 				<p class="text-base-content/60">{$_('settings.appearanceDesc')}</p>
@@ -123,6 +122,5 @@
 				</p>
 			</div>
 		</div>
-	</div>
 	</div>
 </div>

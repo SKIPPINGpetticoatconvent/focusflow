@@ -72,9 +72,9 @@
 {:else if isPublicRoute}
 	{@render children()}
 {:else}
-	<div class="flex min-h-screen">
+	<div class="flex min-h-screen bg-base-200/30">
 		<Sidebar />
-		<main class="flex-1 overflow-auto">
+		<main class="flex-1 overflow-auto p-4 md:p-6 lg:p-8">
 			{@render children()}
 		</main>
 	</div>
