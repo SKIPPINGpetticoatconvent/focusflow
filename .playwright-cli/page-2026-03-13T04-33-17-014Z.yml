@@ -1,0 +1,80 @@
+- generic [ref=e2]:
+  - generic [ref=e30]:
+    - complementary [ref=e31]:
+      - heading "🍅 FocusFlow" [level=1] [ref=e33]:
+        - generic [ref=e34]: 🍅
+        - text: FocusFlow
+      - navigation [ref=e35]:
+        - link "Dashboard" [ref=e36] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e37]
+          - text: Dashboard
+        - link "Workspaces" [ref=e38] [cursor=pointer]:
+          - /url: /workspaces
+          - img [ref=e39]
+          - text: Workspaces
+        - link "Settings" [ref=e40] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e41]
+          - text: Settings
+      - generic [ref=e42]:
+        - generic [ref=e46]:
+          - paragraph [ref=e47]: test
+          - paragraph [ref=e48]: test@example.com
+        - button "Logout" [ref=e49] [cursor=pointer]:
+          - img [ref=e50]
+          - text: Logout
+    - main [ref=e51]:
+      - generic [ref=e179]:
+        - generic [ref=e180]:
+          - heading "Welcome back, test!" [level=1] [ref=e181]
+          - paragraph [ref=e182]: Let's be productive today.
+        - generic [ref=e183]:
+          - generic [ref=e184]:
+            - generic [ref=e186]:
+              - heading "Focus Timer" [level=2] [ref=e187]
+              - generic [ref=e188]:
+                - generic [ref=e189]: Focus Time
+                - generic [ref=e190]:
+                  - img [ref=e191]
+                  - generic [ref=e195]: 25:00
+                - generic [ref=e196]:
+                  - button "Start" [ref=e197] [cursor=pointer]
+                  - button "Reset" [ref=e198] [cursor=pointer]
+                  - button "Skip" [ref=e199] [cursor=pointer]
+                - generic [ref=e200]: "Completed: 0 pomodoros"
+            - generic [ref=e202]:
+              - heading "Tasks" [level=2] [ref=e203]
+              - generic [ref=e204]:
+                - generic [ref=e205]:
+                  - img [ref=e206]
+                  - searchbox "Search tasks..." [ref=e207]
+                - generic [ref=e208]:
+                  - textbox "Add a new task..." [active] [ref=e209]: Test task
+                  - button "Add" [ref=e242] [cursor=pointer]:
+                    - img [ref=e243]
+                    - text: Add
+                - generic [ref=e210]:
+                  - button "All" [ref=e211] [cursor=pointer]
+                  - button "Pending" [ref=e212] [cursor=pointer]
+                  - button "In Progress" [ref=e213] [cursor=pointer]
+                  - button "Completed" [ref=e214] [cursor=pointer]
+                - paragraph [ref=e215]: No tasks yet. Add one above!
+          - generic [ref=e218]:
+            - heading "Statistics" [level=2] [ref=e219]
+            - generic [ref=e220]:
+              - generic [ref=e221]:
+                - generic [ref=e222]:
+                  - generic [ref=e223]: Total Minutes
+                  - generic [ref=e224]: "0"
+                - generic [ref=e225]:
+                  - generic [ref=e226]: Sessions
+                  - generic [ref=e227]: "0"
+                - generic [ref=e228]:
+                  - generic [ref=e229]: Tasks Done
+                  - generic [ref=e230]: "0"
+              - heading "Weekly Focus Time" [level=4] [ref=e232]
+              - heading "Task Completion" [level=4] [ref=e236]
+      - button [ref=e240] [cursor=pointer]:
+        - img [ref=e241]
+  - generic [ref=e29]: FocusFlow - Smart Pomodoro Task Tracker

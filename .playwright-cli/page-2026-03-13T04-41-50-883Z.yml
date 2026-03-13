@@ -1,0 +1,55 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e7]:
+      - generic [ref=e11]: 🍅
+      - generic [ref=e12]: 🍅
+      - generic [ref=e13]: ⏱️
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e17]: 🍅
+          - heading "FocusFlow" [level=1] [ref=e18]
+          - paragraph [ref=e19]: Master your time, achieve your goals
+        - generic [ref=e21]:
+          - heading "Welcome Back" [level=2] [ref=e22]
+          - paragraph [ref=e23]: Enter your details to continue
+          - generic [ref=e24]:
+            - generic [ref=e26]:
+              - img [ref=e27]
+              - text: Email
+            - textbox "Email" [ref=e29]:
+              - /placeholder: your@email.com
+          - generic [ref=e30]:
+            - generic [ref=e32]:
+              - img [ref=e33]
+              - text: Password
+            - textbox "Password" [ref=e35]:
+              - /placeholder: ••••••••
+          - button "Sign In" [ref=e37] [cursor=pointer]:
+            - img [ref=e38]
+            - text: Sign In
+          - generic [ref=e40]: OR
+          - button "Create Account" [ref=e42] [cursor=pointer]:
+            - img [ref=e43]
+            - text: Create Account
+          - paragraph [ref=e46]:
+            - img [ref=e47]
+            - text: "Demo mode: Use any email/password to login"
+        - paragraph [ref=e49]:
+          - link "Back to home" [ref=e50] [cursor=pointer]:
+            - /url: /
+            - img [ref=e51]
+            - text: Back to home
+    - generic [ref=e53]: FocusFlow - Smart Pomodoro Task Tracker
+  - generic [ref=e56]:
+    - generic [ref=e57]: "/home/ub/Work/focusflow/src/routes/(app)/dashboard/+page.svelte:114:0 A component can have a single top-level `<script>` element and/or a single top-level `<script module>` element https://svelte.dev/e/script_duplicate"
+    - generic [ref=e58]: /home/ub/Work/focusflow/src/routes/(app)/dashboard/+page.svelte:114:0
+    - generic [ref=e59]: "112 | <AIAssistant /> 113 | 114 | <script> ^ 115 | // Update current time 116 | function updateTime() {"
+    - generic [ref=e60]:
+      - text: Click outside, press Esc key, or fix the code to dismiss.
+      - text: You can also disable this overlay by setting
+      - code [ref=e61]: server.hmr.overlay
+      - text: to
+      - code [ref=e62]: "false"
+      - text: in
+      - code [ref=e63]: vite.config.ts
+      - text: .

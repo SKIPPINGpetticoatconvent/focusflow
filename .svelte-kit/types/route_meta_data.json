@@ -1,0 +1,9 @@
+{
+	"/(app)": [],
+	"/": [],
+	"/(app)/dashboard": [],
+	"/login": [],
+	"/register": [],
+	"/(app)/settings": [],
+	"/(app)/workspaces": []
+}

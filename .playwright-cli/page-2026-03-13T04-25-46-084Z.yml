@@ -1,0 +1,26 @@
+- generic [ref=e2]:
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - heading "🍅 FocusFlow" [level=1] [ref=e10]:
+        - generic [ref=e11]: 🍅
+        - text: FocusFlow
+      - paragraph [ref=e12]: Smart Pomodoro Task Tracker
+    - generic [ref=e14]:
+      - heading "Welcome back" [level=2] [ref=e15]
+      - paragraph [ref=e16]: Enter your email and password to continue
+      - generic [ref=e17]:
+        - generic [ref=e19]: Email
+        - textbox "Email" [ref=e20]:
+          - /placeholder: your@email.com
+      - generic [ref=e21]:
+        - generic [ref=e23]: Password
+        - textbox "Password" [active] [ref=e24]:
+          - /placeholder: ••••••••
+      - button "Sign In" [ref=e26] [cursor=pointer]
+      - generic [ref=e27]: OR
+      - button "Create Account" [ref=e29] [cursor=pointer]
+      - paragraph [ref=e30]: "Demo mode: Use any email/password to login"
+    - paragraph [ref=e31]:
+      - link "← Back to home" [ref=e32] [cursor=pointer]:
+        - /url: /
+  - generic [ref=e33]: FocusFlow - Smart Pomodoro Task Tracker

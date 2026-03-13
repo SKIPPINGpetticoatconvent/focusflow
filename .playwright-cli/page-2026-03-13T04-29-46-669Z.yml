@@ -1,0 +1,42 @@
+- generic [ref=e2]:
+  - generic [ref=e30]:
+    - complementary [ref=e31]:
+      - heading "🍅 FocusFlow" [level=1] [ref=e33]:
+        - generic [ref=e34]: 🍅
+        - text: FocusFlow
+      - navigation [ref=e35]:
+        - link "Dashboard" [ref=e36] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e37]
+          - text: Dashboard
+        - link "Workspaces" [ref=e38] [cursor=pointer]:
+          - /url: /workspaces
+          - img [ref=e39]
+          - text: Workspaces
+        - link "Settings" [ref=e40] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e41]
+          - text: Settings
+      - generic [ref=e42]:
+        - generic [ref=e46]:
+          - paragraph [ref=e47]: test
+          - paragraph [ref=e48]: test@example.com
+        - button "Logout" [ref=e49] [cursor=pointer]:
+          - img [ref=e50]
+          - text: Logout
+    - main [ref=e51]:
+      - generic [ref=e115]:
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - heading "Workspaces" [level=1] [ref=e118]
+            - paragraph [ref=e119]: Manage your workspaces
+          - button "New Workspace" [ref=e120] [cursor=pointer]:
+            - img [ref=e121]
+            - text: New Workspace
+        - generic [ref=e123]:
+          - img [ref=e124]
+          - paragraph [ref=e125]: No workspaces yet
+          - button "Create your first workspace" [ref=e126] [cursor=pointer]:
+            - img [ref=e127]
+            - text: Create your first workspace
+  - generic [ref=e29]: FocusFlow - Smart Pomodoro Task Tracker

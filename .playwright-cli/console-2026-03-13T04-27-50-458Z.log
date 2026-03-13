@@ -1,0 +1,20 @@
+[   33962ms] ReferenceError: stroke is not defined
+
+	in <unknown>
+	in PomodoroTimer.svelte
+	in +page.svelte
+	in +layout.svelte
+	in +layout.svelte
+	in root.svelte
+	in undefined
+
+    at PomodoroTimer.$.transition.duration (http://localhost:5173/src/lib/components/PomodoroTimer.svelte:215:38)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-DLKFLC6Y.js?v=01e6208a:1746:52
+    at without_reactive_context (http://localhost:5173/node_modules/.vite/deps/chunk-QGZKX45I.js?v=01e6208a:3274:12)
+    at get_options (http://localhost:5173/node_modules/.vite/deps/chunk-DLKFLC6Y.js?v=01e6208a:1745:12)
+    at Object.in (http://localhost:5173/node_modules/.vite/deps/chunk-DLKFLC6Y.js?v=01e6208a:1765:33)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-DLKFLC6Y.js?v=01e6208a:1810:37
+    at untrack (http://localhost:5173/node_modules/.vite/deps/chunk-QGZKX45I.js?v=01e6208a:4172:12)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-DLKFLC6Y.js?v=01e6208a:1810:9
+    at update_reaction (http://localhost:5173/node_modules/.vite/deps/chunk-QGZKX45I.js?v=01e6208a:3871:18)
+    at update_effect (http://localhost:5173/node_modules/.vite/deps/chunk-QGZKX45I.js?v=01e6208a:4010:21)
