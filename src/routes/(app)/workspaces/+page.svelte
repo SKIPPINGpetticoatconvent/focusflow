@@ -21,13 +21,14 @@
 	}
 </script>
 
-<div class="p-4 md:p-8">
-	<div class="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
+<div class="min-h-screen bg-gradient-to-br from-base-200/40 via-base-100 to-base-100 p-4 md:p-8">
+	<div class="mx-auto max-w-[1280px]">
+	<div class="mb-6 flex flex-col gap-3 rounded-3xl border border-base-300/40 bg-base-100/70 px-5 py-5 backdrop-blur-xl sm:mb-8 sm:flex-row sm:items-center sm:justify-between sm:px-8">
 		<div>
-			<h1 class="text-3xl font-bold">{$_('workspace.title')}</h1>
+			<h1 class="text-3xl font-bold tracking-tight">{$_('workspace.title')}</h1>
 			<p class="text-base-content/60">{$_('workspace.subtitle')}</p>
 		</div>
-		<button class="btn btn-primary" onclick={() => showNewWorkspaceDialog = true}>
+		<button class="btn btn-primary rounded-xl" onclick={() => showNewWorkspaceDialog = true}>
 			<Plus class="w-4 h-4 mr-2" />
 			{$_('workspace.newWorkspace')}
 		</button>
@@ -36,10 +37,10 @@
 	<div class="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
 		{#each $workspaces as workspace}
 			<button 
-				class="card bg-base-100 shadow-xl cursor-pointer hover:shadow-2xl transition-all text-left {$currentWorkspace?.id === workspace.id ? 'ring-2 ring-primary' : ''}"
+				class="card cursor-pointer border border-base-300/40 bg-base-100/80 text-left shadow-xl backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:shadow-2xl {$currentWorkspace?.id === workspace.id ? 'ring-2 ring-primary/70' : ''}"
 				onclick={() => selectWorkspace(workspace.id)}
 			>
-				<div class="card-body">
+				<div class="card-body gap-2">
 					<h2 class="card-title flex items-center gap-2">
 						{#if workspace.type === 'team'}
 							<Users class="w-5 h-5" />
@@ -60,14 +61,17 @@
 
 		{#if $workspaces.length === 0}
 			<div class="col-span-full text-center py-12">
-				<Folder class="w-12 h-12 mx-auto text-base-content/40 mb-4" />
+				<div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-base-300/40 bg-base-100/70">
+					<Folder class="w-9 h-9 text-base-content/40" />
+				</div>
 				<p class="text-base-content/60">{$_('workspace.noWorkspace')}</p>
-				<button class="btn btn-outline mt-4" onclick={() => showNewWorkspaceDialog = true}>
+				<button class="btn btn-outline mt-4 rounded-xl" onclick={() => showNewWorkspaceDialog = true}>
 					<Plus class="w-4 h-4 mr-2" />
 					{$_('workspace.createFirst')}
 				</button>
 			</div>
 		{/if}
+	</div>
 	</div>
 </div>
 

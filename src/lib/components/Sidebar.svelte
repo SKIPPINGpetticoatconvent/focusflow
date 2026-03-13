@@ -34,11 +34,11 @@
 	}
 </script>
 
-<aside class="w-64 bg-base-100 h-screen flex flex-col border-r border-base-200 shadow-xl">
+<aside class="sticky top-0 h-screen w-72 border-r border-base-300/40 bg-base-100/85 backdrop-blur-xl flex flex-col">
 	<!-- Logo -->
-	<div class="p-6">
+	<div class="p-6 pb-4">
 		<a href="/dashboard" class="flex items-center gap-3 group">
-			<div class="w-10 h-10 rounded-xl bg-error text-error-content flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+			<div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-error to-warning text-error-content flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
 				<span class="text-2xl">🍅</span>
 			</div>
 			<div>
@@ -51,13 +51,13 @@
 	<!-- Workspace Selector -->
 	{#if $currentWorkspace}
 		<div class="px-4 pb-4">
-			<div class="bg-base-200/50 rounded-xl p-1">
+			<div class="rounded-2xl border border-base-300/40 bg-base-200/45 p-1.5">
 				<button
 					onclick={() => showWorkspaceMenu = !showWorkspaceMenu}
-					class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-base-200 transition-all"
+					class="w-full flex items-center justify-between rounded-xl p-3 hover:bg-base-100/70 transition-all"
 				>
 					<div class="flex items-center gap-3">
-						<div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+						<div class="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
 						</div>
 						<span class="font-medium truncate">{$currentWorkspace.name}</span>
@@ -69,7 +69,7 @@
 						{#each $workspaceStore.workspaces as workspace}
 							<button
 								onclick={() => { workspaceStore.selectWorkspace(workspace.id); showWorkspaceMenu = false; }}
-								class="w-full text-left flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all {$currentWorkspace.id === workspace.id ? 'bg-primary text-primary-content shadow-md' : 'hover:bg-base-200'}"
+								class="w-full text-left flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all {$currentWorkspace.id === workspace.id ? 'bg-primary/90 text-primary-content shadow-md' : 'hover:bg-base-100/80'}"
 							>
 								<div class="w-2 h-2 rounded-full {$currentWorkspace.id === workspace.id ? 'bg-primary-content' : 'bg-base-content/30'}"></div>
 								{workspace.name}
@@ -91,7 +91,7 @@
 		{#each navItems as item}
 			<a
 				href={item.href}
-				class="flex items-center gap-3 px-3 py-3 rounded-xl transition-all group {isActive(item.href, $page.url.pathname) ? 'bg-primary text-primary-content shadow-lg shadow-primary/30' : 'hover:bg-base-200'}"
+				class="flex items-center gap-3 px-3 py-3 rounded-xl border transition-all group {isActive(item.href, $page.url.pathname) ? 'border-primary/30 bg-primary/90 text-primary-content shadow-lg shadow-primary/30' : 'border-transparent hover:border-base-300/40 hover:bg-base-200/60'}"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					{@html item.icon}
@@ -105,9 +105,9 @@
 	</nav>
 
 	<!-- User Section -->
-	<div class="p-4 border-t border-base-200">
+	<div class="p-4 border-t border-base-300/40">
 		{#if $auth.user}
-			<div class="flex items-center gap-3 mb-4 p-3 bg-base-200/50 rounded-xl">
+			<div class="mb-4 flex items-center gap-3 rounded-2xl border border-base-300/40 bg-base-200/45 p-3">
 				{#if $auth.user.avatar_url}
 					<div class="avatar">
 						<div class="w-10 rounded-full ring-2 ring-base-100">
@@ -127,7 +127,7 @@
 				</div>
 			</div>
 		{/if}
-		<button class="btn btn-ghost w-full justify-start gap-2 hover:bg-error/10 hover:text-error group" onclick={handleLogout}>
+		<button class="btn btn-ghost w-full justify-start gap-2 rounded-xl hover:bg-error/10 hover:text-error group" onclick={handleLogout}>
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
 			{$_('common.logout')}
 		</button>

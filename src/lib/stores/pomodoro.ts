@@ -58,25 +58,35 @@ function createPomodoroStore() {
       const workspace = get(currentWorkspace);
       const authState = get(auth);
 
-      if (!workspace || !authState.user) return;
+      // 已在运行，直接忽略重复点击
+      if (state.isRunning) return;
 
-      const duration =
-        state.mode === "work"
-          ? state.settings.workDuration
-          : state.mode === "short_break"
-            ? state.settings.shortBreakDuration
-            : state.settings.longBreakDuration;
+      // 计算当前模式下的总时长（秒）
+      const totalDuration = getDuration(state.mode, state.settings);
 
-      const session = await mockDb.createSession(
-        { duration, type: state.mode },
-        workspace.id,
-        authState.user.id,
-      );
+      // 如果 timeRemaining 异常（<=0 或 > 总时长），重置为满时长
+      let nextTimeRemaining =
+        state.timeRemaining > 0 && state.timeRemaining <= totalDuration
+          ? state.timeRemaining
+          : totalDuration;
+
+      let sessionId = state.currentSessionId;
+
+      // 只有在有 workspace + user 且还没有 sessionId 时才创建新 session
+      if (!sessionId && workspace && authState.user) {
+        const session = await mockDb.createSession(
+          { duration: totalDuration / 60, type: state.mode },
+          workspace.id,
+          authState.user.id,
+        );
+        sessionId = session.id;
+      }
 
       update((s) => ({
         ...s,
         isRunning: true,
-        currentSessionId: session.id,
+        timeRemaining: nextTimeRemaining,
+        currentSessionId: sessionId ?? null,
       }));
 
       clearTimer();

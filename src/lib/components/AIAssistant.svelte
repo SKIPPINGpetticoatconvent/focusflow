@@ -68,9 +68,9 @@
 		<div
 			in:slide={{ duration: 300, axis: 'y' }}
 			out:slide={{ duration: 300, axis: 'y' }}
-			class="absolute bottom-0 right-0 mb-2 mr-2 w-[min(22rem,calc(100vw-1.5rem))] rounded-lg border bg-base-100 shadow-lg sm:w-96"
+			class="absolute bottom-0 right-0 mb-2 mr-2 w-[min(22rem,calc(100vw-1.5rem))] rounded-2xl border border-base-300/40 bg-base-100/90 shadow-2xl backdrop-blur-xl sm:w-96"
 		>
-			<div class="flex items-center justify-between p-4 border-b">
+			<div class="flex items-center justify-between border-b border-base-300/40 p-4">
 				<div class="flex items-center gap-2">
 					<Sparkles class="w-5 h-5 text-primary" />
 					<span class="font-semibold">{$_('ai.title')}</span>
@@ -85,7 +85,7 @@
 					<div class="space-y-2">
 						<p class="text-sm font-medium text-base-content/60">{$_('ai.suggestedTasks')}</p>
 						{#each suggestions as suggestion}
-							<div class="p-3 rounded-lg border bg-base-200 hover:bg-base-300 transition-colors">
+							<div class="rounded-xl border border-base-300/40 bg-base-200/60 p-3 hover:bg-base-300/70 transition-colors">
 								<div class="flex items-start justify-between gap-2">
 									<div class="flex-1">
 										<p class="text-sm font-medium">{suggestion.title}</p>
@@ -123,7 +123,7 @@
 				{/if}
 			</div>
 
-			<div class="p-4 border-t">
+			<div class="border-t border-base-300/40 p-4">
 				<div class="flex gap-2">
 					<input
 						type="text"
@@ -143,7 +143,7 @@
 
 	<button
 		onclick={togglePanel}
-		class="btn btn-circle btn-lg shadow-lg"
+		class="btn btn-circle btn-lg border border-base-300/40 bg-base-100/90 shadow-xl backdrop-blur-xl"
 		title={$_('ai.open')}
 		aria-label={$_('ai.open')}
 	>

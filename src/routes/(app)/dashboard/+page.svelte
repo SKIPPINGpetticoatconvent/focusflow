@@ -26,12 +26,12 @@
 	});
 </script>
 
-<div class="p-4 md:p-8 min-h-screen bg-gradient-to-br from-base-200/50 to-base-100">
+<div class="min-h-screen bg-gradient-to-br from-base-200/40 via-base-100 to-base-100 p-4 md:p-8">
 	<!-- Header -->
-	<div class="mb-8" in:fly={{ y: -20, duration: 500, easing: quintOut }}>
-		<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+	<div class="mx-auto mb-8 max-w-[1280px]" in:fly={{ y: -20, duration: 500, easing: quintOut }}>
+		<div class="flex flex-col gap-4 rounded-3xl border border-base-300/40 bg-base-100/70 px-5 py-5 backdrop-blur-xl md:flex-row md:items-center md:justify-between md:px-8">
 			<div>
-				<h1 class="text-3xl md:text-4xl font-bold">
+				<h1 class="text-3xl md:text-4xl font-bold tracking-tight">
 					{$_('dashboard.welcomeBack')}{$auth.user?.full_name ? `, ${$auth.user.full_name}` : ''}!
 				</h1>
 				<p class="text-base-content/60 mt-1 text-lg flex items-center gap-2">
@@ -40,7 +40,7 @@
 				</p>
 			</div>
 			<div class="flex items-center gap-3">
-				<div class="badge badge-lg badge-primary gap-2">
+				<div class="badge badge-lg border-0 bg-primary/15 text-primary gap-2 px-4">
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
 					<span>{currentTime}</span>
 				</div>
@@ -49,18 +49,18 @@
 	</div>
 
 	<!-- Main Grid -->
-	<div class="grid lg:grid-cols-3 gap-6">
+	<div class="mx-auto grid max-w-[1280px] gap-6 lg:grid-cols-3">
 		<!-- Left Column -->
 		<div class="lg:col-span-2 space-y-6">
 			<!-- Focus Timer Card -->
 			<div 
-				class="card bg-base-100 shadow-xl border border-base-200 overflow-hidden"
+				class="card overflow-hidden border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm"
 				in:fly={{ y: 20, duration: 500, delay: 100, easing: quintOut }}
 			>
 				<div class="card-body p-0">
-					<div class="bg-gradient-to-r from-error/10 to-warning/10 p-6 border-b border-base-200">
+					<div class="border-b border-base-300/40 bg-gradient-to-r from-error/10 to-warning/10 p-6">
 						<div class="flex items-center gap-3">
-							<div class="w-12 h-12 rounded-xl bg-error text-error-content flex items-center justify-center shadow-lg">
+							<div class="w-12 h-12 rounded-2xl bg-error text-error-content flex items-center justify-center shadow-lg">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
 							</div>
 							<div>
@@ -77,13 +77,13 @@
 
 			<!-- Tasks Card -->
 			<div 
-				class="card bg-base-100 shadow-xl border border-base-200 overflow-hidden"
+				class="card overflow-hidden border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm"
 				in:fly={{ y: 20, duration: 500, delay: 200, easing: quintOut }}
 			>
 				<div class="card-body p-0">
-					<div class="bg-gradient-to-r from-primary/10 to-secondary/10 p-6 border-b border-base-200">
+					<div class="border-b border-base-300/40 bg-gradient-to-r from-primary/10 to-secondary/10 p-6">
 						<div class="flex items-center gap-3">
-							<div class="w-12 h-12 rounded-xl bg-primary text-primary-content flex items-center justify-center shadow-lg">
+							<div class="w-12 h-12 rounded-2xl bg-primary text-primary-content flex items-center justify-center shadow-lg">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
 							</div>
 							<div>
@@ -103,13 +103,13 @@
 		<div class="space-y-6">
 			<!-- Statistics Card -->
 			<div 
-				class="card bg-base-100 shadow-xl border border-base-200 overflow-hidden"
+				class="card overflow-hidden border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm"
 				in:fly={{ y: 20, duration: 500, delay: 300, easing: quintOut }}
 			>
 				<div class="card-body p-0">
-					<div class="bg-gradient-to-r from-info/10 to-success/10 p-6 border-b border-base-200">
+					<div class="border-b border-base-300/40 bg-gradient-to-r from-info/10 to-success/10 p-6">
 						<div class="flex items-center gap-3">
-							<div class="w-12 h-12 rounded-xl bg-info text-info-content flex items-center justify-center shadow-lg">
+							<div class="w-12 h-12 rounded-2xl bg-info text-info-content flex items-center justify-center shadow-lg">
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
 							</div>
 							<div>

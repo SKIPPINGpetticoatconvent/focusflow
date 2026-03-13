@@ -8,14 +8,15 @@
 	let email = $derived($auth.user?.email || '');
 </script>
 
-<div class="max-w-3xl p-4 md:p-8">
-	<div class="mb-8">
-		<h1 class="text-3xl font-bold">{$_('settings.title')}</h1>
+<div class="min-h-screen bg-gradient-to-br from-base-200/40 via-base-100 to-base-100 p-4 md:p-8">
+	<div class="mx-auto max-w-4xl">
+	<div class="mb-8 rounded-3xl border border-base-300/40 bg-base-100/70 px-5 py-5 backdrop-blur-xl md:px-8">
+		<h1 class="text-3xl font-bold tracking-tight">{$_('settings.title')}</h1>
 		<p class="text-base-content/60">{$_('settings.subtitle')}</p>
 	</div>
 
 	<div class="space-y-6">
-		<div class="card bg-base-100 shadow-xl">
+		<div class="card border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm">
 			<div class="card-body">
 				<div class="flex items-center gap-2">
 					<User class="w-5 h-5" />
@@ -36,12 +37,12 @@
 					<input id="email" type="text" class="input input-bordered" bind:value={email} disabled />
 				</div>
 				<div class="card-actions justify-end mt-4">
-					<button class="btn btn-primary">{$_('settings.saveChanges')}</button>
+					<button class="btn btn-primary rounded-xl">{$_('settings.saveChanges')}</button>
 				</div>
 			</div>
 		</div>
 
-		<div class="card bg-base-100 shadow-xl">
+		<div class="card border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm">
 			<div class="card-body">
 				<div class="flex items-center gap-2">
 					<Timer class="w-5 h-5" />
@@ -110,7 +111,7 @@
 			</div>
 		</div>
 
-		<div class="card bg-base-100 shadow-xl">
+		<div class="card border border-base-300/40 bg-base-100/80 shadow-xl backdrop-blur-sm">
 			<div class="card-body">
 				<div class="flex items-center gap-2">
 					<Palette class="w-5 h-5" />
@@ -122,5 +123,6 @@
 				</p>
 			</div>
 		</div>
+	</div>
 	</div>
 </div>
