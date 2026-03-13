@@ -1,7 +1,6 @@
 import { browser } from "$app/environment";
 import { get, writable } from "svelte/store";
-import { addMessages, init, locale as i18nLocale } from "svelte-i18n";
-import { en, zh } from "$lib/i18n/messages";
+import { locale as i18nLocale } from "svelte-i18n";
 
 export type Locale = "zh" | "en";
 export type Theme = "light" | "dark";
@@ -58,9 +57,6 @@ export function initPreferences() {
   if (!browser || initialized) return;
   initialized = true;
 
-  addMessages("en", en);
-  addMessages("zh", zh);
-
   const savedLocale = localStorage.getItem(LOCALE_KEY) as Locale | null;
   const savedTheme = localStorage.getItem(THEME_KEY) as Theme | null;
 
@@ -73,12 +69,6 @@ export function initPreferences() {
       ? "dark"
       : "light");
 
-  init({
-    fallbackLocale: "en",
-    initialLocale,
-  });
-
-  theme.set(initialTheme);
-  applyLocale(initialLocale);
-  applyTheme(initialTheme);
+  setLocale(initialLocale);
+  setTheme(initialTheme);
 }
